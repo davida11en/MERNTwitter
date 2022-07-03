@@ -14,6 +14,7 @@ const tweets = require("./routes/api/tweets");
 const bodyParser = require('body-parser');
 // so that our users can actually sign in and access protected routes
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 // connect to MongoDB using Mongoose:
 mongoose
@@ -21,10 +22,14 @@ mongoose
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
-
 // setup some middleware for body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// add the middleware for Passport
+app.use(passport.initialize());
+// to setup a configuration file for Passport
+require('./config/passport')(passport);
 
 // setup a basic route so that we can render some information on our page
 app.get("/", (req, res) => {
