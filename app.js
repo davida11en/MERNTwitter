@@ -12,7 +12,8 @@ const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
 //  so that we can parse the JSON we send to our frontend
 const bodyParser = require('body-parser');
-// const User = require('../../');
+// so that our users can actually sign in and access protected routes
+const jwt = require('jsonwebtoken');
 
 // connect to MongoDB using Mongoose:
 mongoose
@@ -40,5 +41,5 @@ app.use("/api/users", users);
 app.use("/api/tweets", tweets);
 
 // tell Express to start a socket and listen for connections on the path
-// app.listen(port, () => console.log(`Server is running on port ${port}`));
+app.listen(port, () => console.log(`Server is running on port ${port}`));
 
